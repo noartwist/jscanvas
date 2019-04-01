@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Canvas Example</title>
+	<style type="text/css">
+		canvas{
+			border: 1px solid black;
+		}
+
+	</style>
+
+
+</head>
+<body onload="resizeCanvas();">
+
+<!-- Use javascript to set width and height of window DO NOT USE THIS CSS -->
+<canvas id="canvas" width="1400px" height="800px">
+  An alternative text describing what your canvas displays. 
+</canvas>
+
+<script>
+	//Rectangles
+	var canvas = document.querySelector('canvas');
+	var ctx = canvas.getContext('2d');
+    canvas.width = window.innerWidth * .8;
+    canvas.height = window.innerHeight * .8;
+    var x = 0;
+    var y = 0;
+    var color = "red";
+    var radius = 20;
+
+    function draw(){
+        ctx.beginPath();
+        ctx.fillStyle = color;
+        ctx.arc(x, y, radius, 0, 2*Math.PI);
+        ctx.fill()
+    }
+    function resizeCanvas(){
+        canvas.width = window.innerWidth * .8;
+        canvas.height = window.innerHeight * .8;
+    }
+
+    window.addEventListener('arrowup', function (i){
+        radius += 1
+    })
+    window.addEventListener('arrowup', function (i){
+        if(radius > 1){
+            radius -= 1
+        }
+    })
+
+
+    window.addEventListener('mousemove', function (e) {
+        //console.log(e.pageX);
+        //console.log(e.pageY);
+        x = e.pageX;
+        y = e.pageY;
+        draw()
+    })
+
+    window.addEventListener('touchmove', function (t) {
+        //console.log(e.pageX);
+        //console.log(e.pageY);
+        x = e.pageX;
+        y = e.pageY;
+        draw()
+    })
+
+    window.addEventListener("orientationchange", function(o) {
+        ctx.clearRect(0, 0, canvas.width, canvas.height)
+        resizeCanvas()
+    })
+
+    window.addEventListener('keydown', function (s) {
+        //console.log(s.keyCode)
+        //38 = up
+        //40 = down
+
+        if(s.keyCode == 38){
+            radius += 1;
+        }
+
+        if(s.keyCode == 40){
+            if(radius > 1){
+                radius -= 1
+            }
+        }
+
+    })
+
+    window.addEventListener('keypress', function (k) {
+        //console.log(k.keyCode);
+
+        //Colors
+        if(k.keyCode == 114){ color = "red";}
+        if(k.keyCode == 98){ color = "blue";}
+        if(k.keyCode == 103){ color = "green";}
+        if(k.keyCode == 121){ color = "yellow";}
+        if(k.keyCode == 111){ color = "orange";}
+
+        //Actions
+        if(k.key == " "){ctx.clearRect(0, 0, canvas.width, canvas.height);}
+
+
+        draw()    
+    })
+    
+
+</script>
+
+<input type = "color" value="#FF0000" id ="cp">
+
+<script>
+    c = document.querySelector("#cp");
+    console.log(c)
+
+    c.addEventListener("input", function (p){
+        color = c.value
+    })
+
+</script>
+
+
+	<!-- <br><input type="file" id="myFile" size="50" onchange="myFunction()"><br> -->
+
+</body>
+</html>
