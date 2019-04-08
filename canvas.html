@@ -62,8 +62,8 @@
     window.addEventListener('touchmove', function (t) {
         //console.log(e.pageX);
         //console.log(e.pageY);
-        ctx.x = t.touches[0].screenX;
-        ctx.y = t.touches[0].screenY;
+        canvas.x = t.touches[0].screenX;
+        canvas.y = t.touches[0].screenY;
         draw()
     })
 
